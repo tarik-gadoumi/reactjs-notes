@@ -1,0 +1,23 @@
+<!-- 
+“Interpolation” is defined as =====> IMPORTANT !!!
+"the insertion of something of a different nature into something else."
+ -->
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@17.0.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.development.js"></script>
+
+  <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
+  💣
+
+  <script type="text/babel">
+    // 🐨 re-implement this using JSX!
+    const _class = 'GO';
+    const btn = <button children="Yo click Fast !" />;
+    const children = `Hello Ganja Man`;
+
+    const element = <h1 className={_class} children={[children, ' ', btn]} />;
+
+    ReactDOM.render(element, document.getElementById('root'));
+  </script>
+</body>

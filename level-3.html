@@ -1,0 +1,37 @@
+<!--
+React: responsible for creating React elements (kinda like document.createElement())
+ReactDOM: responsible for rendering React elements to the DOM (kinda like rootElement.append()) 
+-->
+<body>
+  <div id="root"></div>
+
+  <script
+    crossorigin
+    src="https://unpkg.com/react@17.0.0/umd/react.development.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.development.js"
+  ></script>
+  <script type="module">
+    //type=module => parceque mon script va contenir que du pure JS et non du JSX càd mon script n'a pas besoin d'être compiler
+    const element = React.createElement('div', {
+      className: 'container',
+      children: 'Mashurooom !',
+      key: 232323,
+    });
+    const btn = React.createElement('button', {
+      className: 'btn',
+      children: 'click Me !',
+      key: '242424',
+    });
+
+    ReactDOM.render([btn, element], document.getElementById('root'));
+  </script>
+</body>
+<!-- 
+    l'affichage d'un array requiere à ce que chaque element du tableau ai une clé pour que react par derrière puisse 
+    bien contrôler et surveiller les elements (certainement parceque certain modules intern stable de react on besoin de
+    la clé de l'element d'un tableau pour effectuer leur tâches )
+    ==> sinon erreur dans la console.log
+ -->

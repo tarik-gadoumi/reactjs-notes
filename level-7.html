@@ -1,0 +1,20 @@
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@17.0.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.development.js"></script>
+
+  <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
+
+  <script type="text/babel">
+    // 🐨 re-implement this using JSX!
+    const className = 'GO';
+    const btn = <button children="Yo click Fast !" />;
+    const children = [1, 2, 3].map((v, i, list) => {
+      return <li key={i} children={btn} />;
+    });
+    const props = { children, className };
+    const element = <ol {...props} />;
+
+    ReactDOM.render(element, document.getElementById('root'));
+  </script>
+</body>

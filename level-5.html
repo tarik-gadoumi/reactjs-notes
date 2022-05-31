@@ -1,0 +1,20 @@
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@17.0.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.development.js"></script>
+
+  <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
+  <!-- loading Babel compiler because inside my  script tag  i'll use JSX -->
+  <script type="text/babel">
+    // 🐨 re-implement this using JSX!
+    const element = <h1 className="GO" children="Hello Ganja Man" />;
+
+    // 💰 there are a few subtle differences between JSX and HTML. One such
+    // difference is how you apply a class to an element in JSX is by using
+    // `className` rather than `class`!
+    // 📜 You can learn the differences between JSX and HTML syntax from the React docs here:
+    // https://reactjs.org/docs/dom-elements.html#differences-in-attributes
+
+    ReactDOM.render(element, document.getElementById('root'));
+  </script>
+</body>

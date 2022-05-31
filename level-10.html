@@ -1,0 +1,78 @@
+<!-- 
+    ui = <Capitalized /> // React.createElement(Capitalized)
+    ui = <property.access /> // React.createElement(property.access)
+    ui = <Property.Access /> // React.createElement(Property.Access)
+    ui = <Property['Access'] /> // SyntaxError
+    ui = <lowercase /> // React.createElement('lowercase')
+    ui = <kebab-case /> // React.createElement('kebab-case')
+    ui = <Upper-Kebab-Case /> // React.createElement('Upper-Kebab-Case')
+    ui = <Upper_Snake_Case /> // React.createElement(Upper_Snake_Case)
+    ui = <lower_snake_case /> // React.createElement('lower_snake_case')
+ -->
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@17.0.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
+  <script type="text/babel">
+    function Message({ subject, greeting }) {
+      return (
+        <div className="interieur">
+          {subject}-{greeting}
+        </div>
+      );
+    }
+    //pourquoiles functions greeting et subject dans Message.propTypes sont déclanchée a chaque rendu en même temps ?
+
+    const x = {
+      greeting: function (props, propName, componentName) {
+        if (typeof props[propName] !== 'string') {
+          throw Error(`the ${componentName} should have the ${propName} as a string instead of
+       {${props[propName]}} ==>type ==> ${typeof props[propName]} ! `);
+        }
+      },
+      subject: function (props, propName, componentName) {
+        if (typeof props[propName] !== 'string') {
+          throw Error(`the ${componentName} should have the ${propName} as a string instead of
+       {${props[propName]}} ==>type ==> ${typeof props[propName]} ! `);
+        }
+      },
+    };
+    // selon La Doc : https://fr.reactjs.org/docs/typechecking-with-proptypes.html
+    /* Pour lancer la validation de types des props d’un composant, vous pouvez ajouter la propriété spéciale propTypes */
+    Message.propTypes = {
+      greeting: x.greeting,
+      subject: x.subject,
+    };
+
+    //ici je englobe tout dans un React Fragment <></> (c'est comme un div seule difference c'est qu'il sera détecter
+    // comme composant par react devtool)
+    const element = (
+      <>
+        <h1>
+          <Message subject={'Gangsta'} greeting={5044400} />
+        </h1>
+        <h1>
+          <Message subject={'Paradize'} greeting={'4ever'} />
+        </h1>
+      </>
+    );
+
+    ReactDOM.render(element, document.getElementById('root'));
+  </script>
+</body>
+<!--    
+    le mieux serait d'utiliser la lib prop-types
+    *il faut savoir que les vérification comme ça demande beaucoup de calcule donc ceci ne doit etre utiliser que pendant la
+    *phase de développement
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+    *ici j'appel PropTypes built-in object de la lib prop-types (faire attention: propTypes sans lib et PropTypes en utilisant la lib)
+    greeting : PropTypes.string.isRequired,
+    subject  : PropTypes.string.isRequired, 
+    const element = (
+            <div className="container">
+            <h1 className="message"><Message subject={'Gangsta'} greeting={5000}/></h1>
+            <h1 className="message"><Message subject={'Paradize'} greeting={"4ever"}/></h1>
+        </div>
+       )
+ -->

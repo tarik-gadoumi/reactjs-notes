@@ -1,0 +1,29 @@
+<!--
+     2. 2. 💯 using a custom component with JSX 
+-->
+
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@17.0.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
+  <script type="text/babel">
+    // 🐨 Make a function called `message` which returns the JSX we want to share
+    function Message({ children }) {
+      return <div className="interieur" children={children} />;
+    }
+    const element = (
+      <div className="container">
+        <h1 className="message">
+          <Message children={'Gangsta'} />
+        </h1>
+        <h1 className="message">
+          <Message children={'Paradize'} />
+        </h1>
+      </div>
+    );
+
+    // 💯 This is only the first step to making actual React components.
+    ReactDOM.render(element, document.getElementById('root'));
+  </script>
+</body>

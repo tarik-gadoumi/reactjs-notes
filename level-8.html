@@ -1,0 +1,29 @@
+<!-- 
+    1 💯 using a custom component with React.createElement 
+-->
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@17.0.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
+  <script type="text/babel">
+    function message({ children }) {
+      return <div className="interieur" children={children} />;
+    }
+    const element = (
+      <div className="container">
+        <h1 className="message">
+          {React.createElement(message, { children: 'koala' })}
+          {/*
+            ce h1 est le seul des deux à être considerer comme composant par le plugin React DevTool 
+            explication: parcequ'il a été créer par l'api createElement de React (React.createElement) 
+            et non par celle du DOM document.createElement 
+        */}
+        </h1>
+        <h1 className="message">{message({ children: 'Satoro' })}</h1>
+      </div>
+    );
+
+    ReactDOM.render(element, document.getElementById('root'));
+  </script>
+</body>
