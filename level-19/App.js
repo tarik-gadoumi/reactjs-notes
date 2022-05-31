@@ -23,7 +23,7 @@ function App() {
       </button>
       <ol>
         {arr.map((item) => (
-          <li>
+          <li key={item.id}>
             <button onClick={() => removeItem(item)}>remove</button>{' '}
             <label htmlFor={`${item.id}-input`}>{item.value}</label>{' '}
             <input id={`${item.id}-input`} defaultValue={item.value} />
@@ -38,13 +38,14 @@ function App() {
  * * sache que pour afficher un element react crée dabord un DOM virtuel
  * * place chaque elemet dans ce DOM
  * * puis transmet ça dans le window DOM
- * * pourquoi je écris ça ?
- * * et bah sache que lorsqu'une modification est effectuer
+ * * pourquoi je parle de  ça ?
+ * * et bah sache que lorsque une modification est effectuer
  * * react va comparer l'ancien DOM virtuel avec le nouveau (celui qui contient la modification)
- * * lors de l'affichage d'un array react sans cette fameuse Key={"unique key !"}
- * * react ne saura pas que c'est l'élement a l'index 4 qui est maintenant à l'index 3
- * * du coup l'élement a l'index 4 est placé a l'index 3 mais prendra la valeur de l'élement 3
- * * parceque react effectue le rendu est place les élements disponible mais ne sais pas quel élément a été supprimer
- * * ou ajouter ou le nouvel ordre de ces derniers
+ * * supposans je supprime un élément
+ * * lors de l'affichage d'un ARRAY react sans cette fameuse Key={"unique key !"}
+ * * ne saura pas si j'ai supprimer 4 puis ajouter 3 element ou j ai changer l'ordre puis supprimer 1 ou j ai modiefier etc..
+ * * bref sans la key il ne peux pas tracker l'état de l'élément
+ * ! ne surtout pas mettre l'index comme key sinon le beug persiste
+ * ! https://app.egghead.io/lessons/react-use-the-key-prop-when-rendering-a-list-with-react-3a0661b6/embed?preload=false
  */
 export default App;
