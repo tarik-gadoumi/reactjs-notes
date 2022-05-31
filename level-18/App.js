@@ -24,7 +24,7 @@ function UsernameForm({ onSubmitDiyalLform }) {
         // The onsubmit attribute fires when a form is submitted.
         onSubmit={handleSubmit}
       >
-        <label>what's your name</label>
+        <label>what's your name</label>git
         {/* The onchange attribute fires the moment when the value of the element is changed.*/}
         <input onChange={watcherFn} ref={Tracker} name="foo"></input>
         <div
@@ -48,3 +48,14 @@ function App() {
   return <UsernameForm onSubmitDiyalLform={affichageAlerte} />;
 }
 export default App;
+/**
+ * si on veux controler l'input on peut procéder tel :
+ * const {value}= event.target (inside the watcher fun)
+ * event.target.value = value.toLowerCase() (inside the watcher fun)
+ * ! mais react veux que a chauque fois je touche a un state il faut que j'utilise les hooks
+ * donc le code deviendra ainsi
+ ** const [username,setUsername]=React.useState('')
+ ** onSubmitDiyalLform(username) //dans onSubmitDiyalLform
+ ** setUsername (value.toLowerCase()) // dans watcherFn
+ *! dans la balise input => value={username}
+ */
