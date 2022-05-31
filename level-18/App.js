@@ -21,9 +21,11 @@ function UsernameForm({ onSubmitDiyalLform }) {
     >
       <form
         style={{ display: 'flex', flexDirection: 'column' }}
+        // The onsubmit attribute fires when a form is submitted.
         onSubmit={handleSubmit}
       >
         <label>what's your name</label>
+        {/* The onchange attribute fires the moment when the value of the element is changed.*/}
         <input onChange={watcherFn} ref={Tracker} name="foo"></input>
         <div
           style={{
