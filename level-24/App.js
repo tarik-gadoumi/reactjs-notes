@@ -14,6 +14,7 @@
  * * ça c'est beau !!!
  * * du coup notre code deviendra
  */
+import * as React from 'react';
 function Greeting({ initialName = '' }) {
   const [name, setName] = React.useState(() => {
     return window.localStorage.getItem('Le Nom =>') || initialName;
