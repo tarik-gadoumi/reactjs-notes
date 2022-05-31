@@ -5,7 +5,7 @@
  * je veux dire par là que ref peut etre attacher a n'importe quel html tag
  * est faire référence a lui par la suite
  * on pourra acceder au methods de cet html tag attaché a la ref via la clé current retournée par
- * useRef .
+ * useRef
  * https://fr.reactjs.org/docs/hooks-reference.html#useref
  */
 import * as React from 'react';
