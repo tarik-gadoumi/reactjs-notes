@@ -43,13 +43,24 @@ function useLocalStorageState(
 
 function Greeting({ initialName = '' }) {
   const [name, setName] = useLocalStorageState('name', initialName);
-
+  function handleClick() {
+    if (key === 'name') {
+      setKey('firstName');
+    } else if (key === 'firstName') {
+      setKey('Name');
+    } else {
+      setKey('name');
+    }
+  }
   function handleChange(event) {
     setName(event.target.value);
   }
 
   return (
     <div>
+      <button type="button" onClick={handleClick}>
+        Change key!
+      </button>
       <form>
         <label htmlFor="name">Name: </label>
         <input value={name} onChange={handleChange} id="name" />
