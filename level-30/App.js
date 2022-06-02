@@ -6,7 +6,7 @@ import {
   PokemonForm,
   PokemonDataView,
 } from './pokemon';
-
+import './styles.css';
 function PokemonInfo({ pokemonName }) {
   const [pokemon, setPokemon] = React.useState(null);
 
