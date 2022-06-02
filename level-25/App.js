@@ -1,7 +1,8 @@
 /**
  * ! creation de notre premier custom Hook
  * * la logic qui met en place :
- * * useState+lazy state initialisation+side Effect quand key/value change(useEffect)
+ * * une key/value dans le localStorage puis l'affiche si elle existe :
+ * * (useState+lazy state initialisation+side Effect quand key/value change(useEffect))
  * * tout ça peut etre englober dans une fonction qu'on appel dans react un custom Hook
  * * l'utilité de cette approche est :
  * * dans mes projet il se peut que j'ai des comportement qui necessite la même logic
