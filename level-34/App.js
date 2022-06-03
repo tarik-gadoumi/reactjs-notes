@@ -8,11 +8,13 @@
  * * le status,le pokemon,l'erreur
  * * concernant ces 3 états :
  * * quand (l'un depend de l'autre) ou (deux dependent de un [c'est le cas dans notre exemple{ pokemon--->status<---error}])
+ * * cette technique permet aussi d'éviter de préter attention quand ou on place setStatus()
+ * * est-ce avant ou après setPokemon et setError (incroyable)
  * * par exemple
  * * pour un status resolved la variable pokemon se remplis setState({ pokemon: pokemonData, status: 'resolved' });
  * * ou bien pour un status rejected la variable error se remplis setState({ error: errorData, status: 'rejected' });
  * * etc...
- * * et bah on peux utiliser ce joli pattern qui consiste a regrouper ses trois étas dans un object
+ * * on peux utiliser ce joli pattern qui consiste a regrouper ses trois étas dans un object
  * * puis par la suite on update le state tel les lignes 40/43/46
  * ! cet exemple est la porte d'entrée vers le useReducer
  */
