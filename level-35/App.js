@@ -1,7 +1,7 @@
 /**
  * * concepte ultra mega giga stylé
  * * ErrosBoundary catch  errors in its children
- * * it can be weird runtime errors that causes blank screen of dead
+ * * it can be weird runtime errors that causes white screen of dead
  * * it can be errors from our backend
  * * ErrorBoundary est le seule composant qu'on
  * * ne peux pas l'écrire en functional based component
