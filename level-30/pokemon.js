@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-
 const formatDate = (date) =>
   `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')} ${String(
     date.getSeconds()
@@ -124,6 +123,13 @@ function PokemonForm({
     // is the same as the one we're managing, this will not trigger a re-render
     if (typeof externalPokemonName === 'string') {
       setPokemonName(externalPokemonName);
+      /**
+       * ! waaw regarde dans le submit handler
+       * ! il ne déclanche pas le setPokemonName ici
+       * ! enfaîte c'est que quand l'information remonte de l'enfant au parent via le
+       * ! handleSubmit qu'elle redescend ici pour être consomé par la suite
+       * ! par l'input  value={pokemonName} et le boutton disabled={!pokemonName.length}
+       */
     }
   }, [externalPokemonName]);
 
@@ -138,7 +144,17 @@ function PokemonForm({
 
   function handleSelect(newPokemonName) {
     setPokemonName(newPokemonName);
+    /**
+     * todo: parce que l'input du form consomera pokemonName => value={pokemonName}
+     * todo: et aussi notre boutton => disabled={!pokemonName.length}
+     * aka controled input
+     */
     onSubmit(newPokemonName);
+    /**
+     * todo: le nom du pokemon remontera au parent
+     * * pourquoi ?
+     * * dans App.js ligne 43 <  ,j'ai donner une explication claire
+     */
   }
 
   return (
