@@ -7,22 +7,23 @@ import {
 } from './pokemon';
 import './styles.css';
 /**
- * ! ici on montre la gestion d'erreur comment elle peut se faire
- * ! au niveau du .then il accept un deuxieme arg qui fait réf a l'erreur retournée de notre back
- * ! mais ça que ce code pour l'instant est bugé car lors du seError(error)
- * ! et bah on ne remet plus error a null donc l'erreur sera tjrs la et on ne pourra
- * ! pas ce débarasser du message d'erreur (ligne 32) dans le prochain level on  va débuger ça
+ * ! beug corrigé en ajoutant un seule ligne :)
  */
 function PokemonInfo({ pokemonName }) {
   const [pokemon, updatePokemon] = React.useState(null);
+  const [error, setError] = React.useState(null);
   // const error = {
   //   message: `Jeune padawan you have an Error`
   // };
-  const [error, setError] = React.useState(null);
   React.useEffect(() => {
     if (!pokemonName) {
       return;
     }
+    setError(null);
+    /**
+     * * pour que à chaque render cause par le changement du pokemonName
+     * * l'erreur ce met a null et ne persiste plus
+     */
     updatePokemon(null);
     fetchPokemon(pokemonName).then(
       (pokemon) => updatePokemon(pokemon),
