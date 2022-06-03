@@ -8,6 +8,7 @@ import {
 import './styles.css';
 /**
  * ! beug corrigé en ajoutant un seule ligne :)
+ * * (ligne 22)
  */
 function PokemonInfo({ pokemonName }) {
   const [pokemon, updatePokemon] = React.useState(null);
