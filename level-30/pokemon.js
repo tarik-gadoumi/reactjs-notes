@@ -126,13 +126,20 @@ function PokemonForm({
       /**
        * * je ne comprend pas trop l'utilité de ce code ?
        * * sans ce code le re-render n'est fait que 2 fois  avec ce code le re-render double WTF
-       * * essaie de console.log('hello') a la ligne 120 avec et sans ce useEffect pour voir le re-rendering
+       * * essaie de console.log('hello') a la ligne 120 avec et sans ce useEffect pour voir le nb de re-rendering
        * ? ce useEffect à été coder que pour le handleSubmit usecase ? je ne sais pas encore
+       * todo : (update quelque minutes plus tard j'ai compris que la réponse est non )
        * * quand je écris dans l'input la function handleChange est lancée en permanance pour mettre a jour pokemonName de ce script
-       * * mais l'information ne remonte toujours pas au parent via le onSubmit , elle ne remonte que lorsqu'on  submit le form
+       * * mais l'information ne remonte toujours pas au parent, elle ne remonte que lorsqu'on submit le form
        * ! quand l'information remonte de l'enfant au parent via le
        * ! handleSubmit elle redescend ici pour être consomé par la suite
-       * ! par l'input  value={pokemonName} et le boutton disabled={!pokemonName.length}
+       * ! par le useState sous le label de externalPokemonName pour éviter le variable shadowing
+       * ! et parceque a chaque fois notre state va update on est
+       * ! obligé d'appeler setPokemonName() fournis par react
+       * ! c'est comme ça les développeur de react veulent qu'on utilise leur framework
+       * ! parceque l'update function fournis par useState applique d'autre méchanisme intern
+       * ! a notre pokemonName que j'ignore mais il sont vital pour la cycle de vie d'un composant
+       * * voilà :)
        */
     }
   }, [externalPokemonName]);
