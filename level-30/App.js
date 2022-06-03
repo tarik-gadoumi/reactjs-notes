@@ -10,6 +10,12 @@ import {
 import './styles.css';
 function PokemonInfo({ pokemonName }) {
   const [pokemon, setPokemon] = React.useState(null);
+  /**
+   * ! bon vue que je n'utilise pas de typage (typescript)
+   * * oublie pas que pokemon doit  etre un "Object" et non : "string"
+   * * a croire que c'est débile d'écrire ça, mais non !
+   * * tout a l'heure j ai passé pokemonName a PokemonDataView au lieu de pokemon
+   */
 
   React.useEffect(() => {
     if (!pokemonName) {
