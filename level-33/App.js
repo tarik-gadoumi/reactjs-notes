@@ -6,7 +6,7 @@ import {
   fetchPokemon,
 } from './pokemon';
 /**
- * * maintenant pourquoi pas afficher les composants en se basant sur un état (status)
+ * * maintenant pourquoi pas afficher les composants en se basant sur un status
  * * ça facilite le résonnement et aussi on aura plus a setError(null) comme on avait fait
  * * au paravant
  */
@@ -31,10 +31,10 @@ function PokemonInfo({ pokemonName }) {
          * * et bah ça va déclancher else if (status === 'resolved') {
          * *   return <PokemonDataView pokemon={pokemon} />;
          * *}
-         * ? il est où le problème ?
+         * ? et alors il est où le problème ?
          * * t srx ... ?
          * * bah on a pas encore eu le temps de fetch l'objet pokemon qui va remplire <PokemonDataView/>
-         * * qu'on le return donc <PokemonDataView pokemon={ici ça sera NULL} />;
+         * * qu'on va le return donc on va se retrouver avec <PokemonDataView pokemon={ici ça sera NULL} />;
          */
       },
       (error) => {
