@@ -124,10 +124,14 @@ function PokemonForm({
     if (typeof externalPokemonName === 'string') {
       setPokemonName(externalPokemonName);
       /**
-       * ! waaw regarde dans le submit handler
-       * ! il ne déclanche pas le setPokemonName ici
-       * ! enfaîte c'est que quand l'information remonte de l'enfant au parent via le
-       * ! handleSubmit qu'elle redescend ici pour être consomé par la suite
+       * * je ne comprend pas trop l'utilité de ce code ?
+       * * sans ce code le re-render n'est fait que 2 fois  avec ce code le re-render double WTF
+       * * essaie de console.log('hello') a la ligne 120 avec et sans ce useEffect pour voir le re-rendering
+       * ? ce useEffect à été coder que pour le handleSubmit usecase ? je ne sais pas encore
+       * * quand je écris dans l'input la function handleChange est lancée en permanance pour mettre a jour pokemonName de ce script
+       * * mais l'information ne remonte toujours pas au parent via le onSubmit , elle ne remonte que lorsqu'on  submit le form
+       * ! quand l'information remonte de l'enfant au parent via le
+       * ! handleSubmit elle redescend ici pour être consomé par la suite
        * ! par l'input  value={pokemonName} et le boutton disabled={!pokemonName.length}
        */
     }
@@ -135,10 +139,12 @@ function PokemonForm({
 
   function handleChange(e) {
     setPokemonName(e.target.value);
+    // hello
   }
 
   function handleSubmit(e) {
     e.preventDefault();
+    // tant que je ne submit pas hello ne remonte jamais
     onSubmit(pokemonName);
   }
 
