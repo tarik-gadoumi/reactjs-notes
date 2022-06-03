@@ -43,9 +43,8 @@ function App() {
    * ! le handleSubmit du Form provoque le remontée de l'information de l'enfant au parent
    * ? pourquoi on fait ça ?
    * * et bien une fois l'info récupérée elle sera retransmise aux deux enfant Form et Info
-   * * A) dans Form elle sera labélisé externalPokemonName
-   *      * puis servira a donner une valeur à pokemonName grâce au useEffect (dans le Form)
-   *      * l'input du form et le button pourront par la suite consomer cette valeur pokemonName
+   * * A) dans Form elle sera labélisé externalPokemonName (pour éviter variable shadowing)
+   *      * puis servira le useState
    * * B) dans Info elle servira à :
    *      * fetch (dans le useEffect)
    *      * a check si !pokemonName affiche 'Submit a pokemon'
