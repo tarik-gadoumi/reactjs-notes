@@ -80,6 +80,8 @@ function App() {
         <ErrorBoundary FallbackComponent={ErrorFallback} onReset={handleReset}>
           {
             //* on ce débarasse de la key pour ne plus unmount/remount a chaque changement du pokemonName
+            //* on met en place une prop onReset  pour que lordque je declanche resetErrorBoundary dans l'ErrorFallback
+            //* et bien onReset ce lance automatiquement
           }
           <PokemonInfo pokemonName={pokemonName} />
         </ErrorBoundary>
