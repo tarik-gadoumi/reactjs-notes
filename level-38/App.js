@@ -77,7 +77,14 @@ function App() {
       <PokemonForm pokemonName={pokemonName} onSubmit={handleSubmit} />
       <hr />
       <div className="pokemon-info">
-        <ErrorBoundary FallbackComponent={ErrorFallback} onReset={handleReset}>
+        <ErrorBoundary
+          FallbackComponent={ErrorFallback}
+          onReset={handleReset}
+          resetKeys={[pokemonName]}
+          /**
+          * !resetKeys trigerring a re-render of the children so we keep the feature that allow use
+          * !to when an error occure we can swith to other pokemon  without trigerring the Try again button
+          > */ 
           {
             //* on ce débarasse de la key pour ne plus unmount/remount a chaque changement du pokemonName
             //* on met en place une prop onReset  pour que lordque je declanche resetErrorBoundary dans l'ErrorFallback
