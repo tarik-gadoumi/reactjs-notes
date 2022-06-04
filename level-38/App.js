@@ -1,7 +1,3 @@
-/**
- * * ici au lieu de créer notre propre ErrorBoundary j'importe le module existant sur npm
- * * il implémente bcp plus d'options
- */
 import * as React from 'react';
 import {
   fetchPokemon,
