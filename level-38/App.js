@@ -16,9 +16,10 @@ function PokemonInfo({ pokemonName }) {
   const [state, setState] = React.useState({
     /**
      * * on peut résoudre le problème comme ça mais le problème
+     * * status: pokemonName ? 'pending' : 'idle',
      * * du unmounting/remounting persiste
      */
-    status: pokemonName ? 'pending' : 'idle',
+    status: 'idle',
     pokemon: null,
     error: null,
   });
@@ -52,11 +53,12 @@ function PokemonInfo({ pokemonName }) {
   throw new Error('This should be impossible');
 }
 
-function ErrorFallback({ error }) {
+function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <div role="alert">
       There was an error:{' '}
       <pre style={{ whiteSpace: 'normal' }}>{error.message}</pre>
+      <button onClick={resetErrorBoundary}>Try Again</button>
     </div>
   );
 }
@@ -67,27 +69,18 @@ function App() {
   function handleSubmit(newPokemonName) {
     setPokemonName(newPokemonName);
   }
-
+  function handleReset() {
+    setPokemonName('');
+  }
   return (
     <div className="pokemon-info-app">
       <PokemonForm pokemonName={pokemonName} onSubmit={handleSubmit} />
       <hr />
       <div className="pokemon-info">
-        <ErrorBoundary key={pokemonName} FallbackComponent={ErrorFallback}>
-          {/*
-           * à chaque fois on change le pokemonName l'ErrorBoundary va completement ce UNMOUNT (s'enlever de l'écran)
-           * qui par la suite va UNMOUNT tout ces enfants (PokemonInfo ici)
-           * puis ça va mount une nouvelle instance de ErrorBoundary et ces enfants (PokemonInfo)
-           * c'est comme ça la prop key marche
-           * tout ca ça va provoquer un behavior indisérable au niveau de l'expérience utilisateur
-           * pour simuler ce behavior switch entre pikachu/charizard/mew tu vas t'appercevoir  que lors
-           * d'une fraction de ms 'Submit a pokemon' avant d'afficher le prochain pokemon
-           * ceci est causé par l'unmounting/re-mounting de l'ErrorBoundary
-           * c.à.d :
-           *        mounting de l'ErrorBoundary puis de PokemonInfo
-           *        PokemonInfo initial Status to idle donc return 'Submit a pokemon'
-           *        après le rendering déclanchement du useEffect fetch/update status etc ...
-           */}
+        <ErrorBoundary FallbackComponent={ErrorFallback} onReset={handleReset}>
+          {
+            //* on ce débarasse de la key pour ne plus unmount/remount a chaque changement du pokemonName
+          }
           <PokemonInfo pokemonName={pokemonName} />
         </ErrorBoundary>
       </div>
