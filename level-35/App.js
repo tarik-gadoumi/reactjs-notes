@@ -1,5 +1,5 @@
 /**
- * d'abord sache qu"on a un beug dans cet partis qu'on va corriger dans le prochain lvl (spoiler key prop on ErrorBoundary)
+ * d'abord sache qu"on a un beug dans cette partie qu'on va corriger dans le prochain lvl (spoiler key prop on ErrorBoundary)
  * * concepte ultra mega giga stylé
  * * ErrosBoundary catch  errors in its children
  * * it can be weird runtime errors that causes white screen of dead
