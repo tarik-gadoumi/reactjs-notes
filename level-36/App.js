@@ -1,12 +1,10 @@
 /**
- * d'abord sache qu"on a un beug dans cet partis qu'on va corriger dans le prochain lvl (spoiler key prop on ErrorBoundary)
- * * concepte ultra mega giga stylé
- * * ErrosBoundary catch  errors in its children
- * * it can be weird runtime errors that causes white screen of dead
- * * it can be errors from our backend
- * * ErrorBoundary est le seule composant qu'on
- * * ne peux pas l'écrire en functional based component
- * * https://reactjs.org/docs/error-boundaries.html
+ * * beug corrigé on ajoutant la prop key sur l'error boundary
+ * * explication :
+ * * comme on avait vue précédemment il nefaut pas que error persiste (level-32 setError(null))
+ * * sinon ça va engendrer un beug, il faut donc reset l'erreur ;
+ * * definier une prop key sur l'error boundary va permettre de reset l'erreur capturé a chaque changement
+ * * de la variable  attribué a la key  key={pokemonName} [a chaque fois que pokemonName change reset l'erreur]
  */
 import * as React from 'react';
 import {
@@ -112,7 +110,8 @@ function App() {
       <PokemonForm pokemonName={pokemonName} onSubmit={handleSubmit} />
       <hr />
       <div className="pokemon-info">
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <ErrorBoundary key={pokemonName} FallbackComponent={ErrorFallback}>
+          {/* //key={pokemonName} here help us to reset the error  boundary to avoid the persistance  of the error in my  Class ErrorBoundary video71 */}
           <PokemonInfo pokemonName={pokemonName} />
         </ErrorBoundary>
       </div>
