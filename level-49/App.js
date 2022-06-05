@@ -23,49 +23,55 @@ function asyncReducer(state, action) {
     }
   }
 }
-function useAsync(asyncCallback, initialState, dependencies) {
+function useAsync(initialState) {
   const [state, dispatch] = React.useReducer(asyncReducer, {
     status: 'idle',
     data: null,
     error: null,
     ...initialState,
   });
-  React.useEffect(() => {
-    const promise = asyncCallback();
-    if (!promise) {
-      return;
-    }
+
+  const { data, error, status } = state;
+  /**
+   * ? si regarde entre le niveau 48 et 49 le design de l'api useAsync devient beaucoup plus optimisé
+   * * je m'explique :
+   * * cette fois si on va créer une fonction run qui accepte comme paramètre une promesse
+   * * aussi cette implémentation est plus lisible
+   */
+  const run = React.useCallback((promise) => {
     dispatch({ type: 'pending' });
     promise.then(
-      (dataD) => {
-        dispatch({ type: 'resolved', data: dataD });
+      (data) => {
+        dispatch({ type: 'resolved', data });
       },
-      (errorD) => {
-        dispatch({ type: 'rejected', error: errorD });
+      (error) => {
+        dispatch({ type: 'rejected', error });
       }
     );
-  }, [dependencies]);
+  }, []);
 
-  return state;
+  return {
+    error,
+    status,
+    data,
+    run,
+  };
 }
 function PokemonInfo({ pokemonName }) {
-  // ! tu veux comprendre pourquoi useCallback résous le problème infinit loop lorsqu'on l'envoie au dependendy Array ?
-  // ! celà est lié au fait qu'on a besoin de memoizer la valeur que retourne asyncCallback
-  // ! explication très simple a comprendre sur https://epicreact.dev/memoization-and-react/
-
-  const asyncCallback = React.useCallback(() => {
+  const {
+    data: pokemon,
+    status,
+    error,
+    run,
+  } = useAsync({
+    status: pokemonName ? 'pending' : 'idle',
+  });
+  React.useEffect(() => {
     if (!pokemonName) {
       return;
     }
-    return fetchPokemon(pokemonName);
-  }, [pokemonName]);
-
-  const state = useAsync(asyncCallback, {
-    status: pokemonName ? 'pending' : 'idle',
-  });
-
-  const { data: pokemon, status, error } = state;
-
+    run(fetchPokemon(pokemonName));
+  }, [pokemonName, run]);
   if (status === 'idle' || !pokemonName) {
     return 'Submit a pokemon';
   } else if (status === 'pending') {
@@ -102,4 +108,22 @@ function App() {
     </div>
   );
 }
-export default App;
+function AppWithUnmountCheckbox() {
+  const [mountApp, setMountApp] = React.useState(true);
+  return (
+    <div>
+      <label>
+        <input
+          type="checkbox"
+          checked={mountApp}
+          onChange={(e) => setMountApp(e.target.checked)}
+        />{' '}
+        Mount Component
+      </label>
+      <hr />
+      {mountApp ? <App /> : null}
+    </div>
+  );
+}
+
+export default AppWithUnmountCheckbox;
