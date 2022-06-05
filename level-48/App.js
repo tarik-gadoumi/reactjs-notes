@@ -23,7 +23,7 @@ function asyncReducer(state, action) {
     }
   }
 }
-function useAsync(asyncCallback, initialState, dependencies) {
+function useAsync(asyncCallback, initialState) {
   const [state, dispatch] = React.useReducer(asyncReducer, {
     status: 'idle',
     data: null,
@@ -44,13 +44,14 @@ function useAsync(asyncCallback, initialState, dependencies) {
         dispatch({ type: 'rejected', error: errorD });
       }
     );
-  }, [dependencies]);
+  }, [asyncCallback]);
 
   return state;
 }
 function PokemonInfo({ pokemonName }) {
-  // ! tu veux comprendre pourquoi useCallback résous le problème infinit loop lorsqu'on l'envoie au dependendy Array ?
-  // ! celà est lié au fait qu'on a besoin de memoizer la valeur que retourne asyncCallback
+  // ! tu veux comprendre pourquoi useCallback résous le problème de l'infinit loop lorsqu'on la place dans dependency Array du useEffect ?
+  // ! celà est lié au fait qu'on a besoin de memoizer la fonction asyncCallback et non la valeur quelle retourn !
+  // ! sans memoization  a chauqe rendu useEffect considère asyncCallack une nouvelle fonction
   // ! explication très simple a comprendre sur https://epicreact.dev/memoization-and-react/
 
   const asyncCallback = React.useCallback(() => {

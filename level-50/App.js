@@ -8,7 +8,6 @@ import {
 } from '../pokemon';
 function useSafeDispatch(dispatch) {
   const isMounted = React.useRef(false);
-
   React.useLayoutEffect(
     // ou useEffect
     () => {
@@ -78,7 +77,7 @@ function useAsync(initialState) {
     status,
     data,
     run,
-    setData, // je l'ai  copier de utils.js => sera utiliser pour le cache
+    setData, // je l'ai copier de utils.js => sera utiliser pour le cache
     setError, // je l'ai  copier de utils.js
   };
 }

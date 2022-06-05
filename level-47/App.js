@@ -50,13 +50,26 @@ function useAsync(asyncCallback, initialState, dependencies) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
   //* waaaw déliiire [asyncCallback] va provoquer ici une infinit request from the server
-  //* pourquoi donc ?
-  //* à cause de fetch
   //* App rendering -> useEffect-> fetch -> dispatch -> re-rendering -> useEffect-> fetch -> dispatch -> re-rendering
-  //* parceque dans javascript [] !== [] & {} !== {}
-  //* cela veux dire que a chaque fetch le dependencie Array du useEffect considère que promiseObject !== promiseObject
-  //* meme si ils sont identiques {value: lepokemon : onFullfillment:[desipatch(....)]} !== {value: lepokemon : onFullfillment:[desipatch(....)]}
-  //* sauf si on utilise useCallback on verra ça dans le prochain level
+  //? pourquoi donc ?
+  //? à cause de fetch ?
+  //? parceque dans javascript [] !== [] & {} !== {} etc ... ?
+  //! en faite je me suis trompé ce qu'on compare ici ce n'est pas ce que ma fonction retourne
+  //! mais plutôt la fonction elle même [c'est dans useMemo qu'on compare ce que la fonction retourne]
+  //! Sans le useCallback :
+  //************sache que le useEffect va la considérer dans sont dependecy array comme nouvelle fonction a chaque re rendring
+  //************ parceque selon le referential equality dans js fn !== fn sauf si on les égalise par réference
+  /**
+   * Exemple
+   * const a = () => 'hey'
+   * const b = () => 'hey'
+   * a == b (FALSE)
+   * const c = (fn) => fn
+   * a == c(a) (TRUE)
+   */
+
+  //! Avec le useCallback :
+  //* la fn est tjr la même SAUF si les paramètres dans le array change
   return state;
 }
 function PokemonInfo({ pokemonName }) {
