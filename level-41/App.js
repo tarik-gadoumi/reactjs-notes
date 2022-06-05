@@ -7,7 +7,7 @@
 //let's change things to have this API
 // const [count, changeCount] = React.useReducer(countReducer, initialCount)
 // const increment = () => changeCount(step)
-
+import * as React from 'react';
 function countReducer(state, action) {
   //the 1 st  arg  here is called "state" - the current value of  count
   //the 2 nd  arg  here is called "action"- the value passed  to  setCount
