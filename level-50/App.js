@@ -6,6 +6,20 @@ import {
   PokemonInfoFallback,
   PokemonErrorBoundary,
 } from '../pokemon';
+/**
+ * * il s'avère que lorsque je fetch un pokemon puis  je unmount l'appli direct ,react me renvoie une erreur
+ * !Warning: Can't perform a React state update on an unmounted component.
+ * !This is a no-op, but it indicates a memory leak in your app ...
+ * * cette erreur est très très importante a connaitre pcq malgré le fait que notre appli soit unmount des calculent sont
+ * * inutile sont faites dans le background et cela peux etre très dangereux pcq dans l'exemple d'un fetch  c chiant mais pas autant que dans cette video
+ * * https://www.youtube.com/watch?v=8BNdxFzMeVg&t=221s
+ * * dans comment résoudre ce problème
+ * * en implémentant un mock pour notre dispatch
+ * ? quelle est l'utilité de ce mock
+ * * sont utilité c'est de detecter si le composant qui utilise ce dispatch est mounted ou unmounted
+ * * si mounted execute  le dispatch avec tout les arguments dedans
+ * * sinon ne fait rien
+ */
 function useSafeDispatch(dispatch) {
   const isMounted = React.useRef(false);
   React.useLayoutEffect(
@@ -19,12 +33,8 @@ function useSafeDispatch(dispatch) {
     []
   );
   return React.useCallback(
-    (...args) => {
-      if (isMounted.current) {
-        dispatch(...args);
-      }
-    },
-    [dispatch]
+    (...args) => (mountedRef.current ? dispatch(...args) : void 0),
+    [dispatch] //todo tant que le dispatch ne change pas retourne moi la même instance de cette fonction (...args) => (mountedRef.current ? dispatch(...args) : void 0)
   );
 }
 function asyncReducer(state, action) {
@@ -52,7 +62,8 @@ function useAsync(initialState) {
     ...initialState,
   });
   const { data, error, status } = state;
-  const dispatch = useSafeDispatch(unsafeDispatch);
+  const dispatch = useSafeDispatch(unsafeDispatch); //* dispatch contrôlé maintenant  si l'appli est unmounted =>void 0
+
   const run = React.useCallback((promise) => {
     dispatch({ type: 'pending' });
     promise.then(
@@ -78,7 +89,7 @@ function useAsync(initialState) {
     data,
     run,
     setData, // je l'ai copier de utils.js => sera utiliser pour le cache
-    setError, // je l'ai  copier de utils.js
+    setError, // je l'ai copier de utils.js
   };
 }
 

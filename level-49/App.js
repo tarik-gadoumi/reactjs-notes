@@ -36,7 +36,7 @@ function useAsync(initialState) {
    * ? si regarde entre le niveau 48 et 49 le design de l'api useAsync devient beaucoup plus optimisé
    * * je m'explique :
    * * cette fois si on va créer une fonction run qui accepte comme paramètre une promesse
-   * * aussi cette implémentation est plus lisible
+   * * ceci va une peu changer comment useAsync sera coder
    */
   const run = React.useCallback((promise) => {
     dispatch({ type: 'pending' });
