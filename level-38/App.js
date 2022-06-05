@@ -28,6 +28,14 @@ function PokemonInfo({ pokemonName }) {
     setState({ status: 'pending' });
     fetchPokemon(pokemonName).then(
       (pokemon) => {
+        /**
+         * todo: je revien du lvl 46 pour écrire une remarque
+         * * ces setState provoque à la fois perte de la key error ici
+         * * a la fois perte de la key pokemon lors d'une erreur
+         * * a la fois perte des deux clef lors du setState({ status: 'pending' }) ligne 28
+         * * cette problèmatique ne sera plus d'actualité lors de l'utilisation du  useReducer
+         * * car au niveau du reducer selon le case on retourne un objet Overwrited
+         */
         setState({ status: 'resolved', pokemon });
       },
       (error) => {
