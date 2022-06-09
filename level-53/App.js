@@ -8,11 +8,23 @@ import {
 } from './pokemon';
 import { useAsync } from './utils';
 import './styles.css';
+/**
+ * * ici au lieu de faire un props lifting au niveau du PokemonSection
+ * * pour passer [cache] à PreviousPokemon et passer  [cache, dispatch] a PokemonInfo
+ * * je utilise le useContext
+ */
 const PokemonCacheContext = React.createContext();
 function PokemonCacheProvider(props) {
   const [cache, dispatch] = React.useReducer(pokemonCacheReducer, {});
   const value = [cache, dispatch];
   return <PokemonCacheContext.Provider value={value} {...props} />;
+}
+function usePokemonCache() {
+  const context = React.useContext(pokemonCacheContext);
+  if (!context) {
+    throw new Error(`usePokemonCache must be used in a PokemonCacheProvider`);
+  }
+  return context;
 }
 function pokemonCacheReducer(state, action) {
   switch (action.type) {
@@ -27,7 +39,7 @@ function pokemonCacheReducer(state, action) {
 
 function PokemonInfo({ pokemonName }) {
   const { data: pokemon, status, error, run, setData } = useAsync();
-  const [cache, dispatch] = React.useContext(PokemonCacheContext);
+  const [cache, dispatch] = usePokemonCache();
   React.useEffect(() => {
     if (!pokemonName) {
       return;
@@ -55,7 +67,7 @@ function PokemonInfo({ pokemonName }) {
 }
 
 function PreviousPokemon({ onSelect }) {
-  const [cache] = React.useContext(PokemonCacheContext);
+  const [cache] = usePokemonCache();
 
   return (
     <div>
