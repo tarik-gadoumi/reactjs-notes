@@ -5,8 +5,11 @@ import {
   PokemonDataView,
   PokemonInfoFallback,
   PokemonErrorBoundary,
-} from '../pokemon';
+} from './pokemon';
+
 /**
+ * !(update du 09/06/2022 react nous envoie plus le warning https://medium.com/doctolib/react-stop-checking-if-your-component-is-mounted-3bb2568a4934)
+ * ! c'est pour ça je ne peux plus simuler l'errur WARNING: can't perform etc...
  * * il s'avère que lorsque je fetch un pokemon puis  je unmount l'appli direct ,react me renvoie une erreur
  * !Warning: Can't perform a React state update on an unmounted component.
  * !This is a no-op, but it indicates a memory leak in your app ...

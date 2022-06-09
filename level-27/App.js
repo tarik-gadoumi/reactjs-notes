@@ -1,6 +1,6 @@
 // Lifting state
 /**
- * ! c'est à dire que le state des enfants remontre dans le parent
+ * ! c'est à dire que le state de x Components est utiliser par y component qui est un voisin ou un enfant de ce voisin
  * * Name + FavoriteAnimal --remonte vers--> App
  * * parceque le composant Display dans le parent a besoin de leur state
  * * si je touche a name  re-render se produit dans <Name/> et <Display/>
