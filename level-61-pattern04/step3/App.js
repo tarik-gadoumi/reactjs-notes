@@ -13,7 +13,7 @@ function useToggle() {
     return {
       'aria-pressed': on,
       onClick: () => {
-        onclick && onClick();
+        onClick && onClick();
         toggle();
       },
       ...props,
