@@ -1,8 +1,10 @@
-// Flexible Compound Components
-// sta3mlna  context Provider instaed of React.Children.map .... React.clone...
-// bach  n9dr npartagi  state diyal toggle btw (toggleOn/oFF/"Div")
-//had l7za9 kolo 3la 9bl  "Div" 7itach child.type=div ma ghdich tkhdm  m3ah
-//const newChild = React.cloneElement(child,{on,toggle})
+//! Flexible Compound Components
+//*We used context Provider instaed of React.Children.map... React.clone...
+//*so we can share the state btw (toggleOn/oFF/"Div")
+//*tout ce changement à cause du "Div" pcq child.type = div
+//*et la condition ternaire vas nous retourner child et non
+//*React.cloneElement(child,{on,toggle})
+
 import * as React from 'react';
 import { Switch } from '../switch';
 
