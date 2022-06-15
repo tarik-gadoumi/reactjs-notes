@@ -1,5 +1,6 @@
 // Context Module Functions
 import { UserProvider, useUser, updateUser } from './context/user-context';
+
 function UserSettings() {
   const [{ user, status, error }, userDispatch] = useUser();
 
